@@ -2,7 +2,7 @@
  * File name: heap.c
  * Author: Akalanka Edirisinghe <akalankae@gmail.com>
  * Created on: 31 Mar 24
- * Last modified: 31 Mar 24 03.25 AM
+ * Last modified: 01 Apr 24 12.35 PM
  * Description: Automate the deallocation of dynamic memory reserved by the
  * program.
  ******************************************************************************/
@@ -26,8 +26,8 @@ void free_heap_list(void)
 
 static void append_heap_list(void *p)
 {
-    struct heap *curr = HEAP_LIST;
-    struct heap *new = malloc(sizeof(struct heap)); // ? could be NULL
+    struct heap **last_node_p = &HEAP_LIST;
+    struct heap *new = malloc(sizeof(struct heap));
 
     if (new == NULL)
     {
@@ -37,15 +37,10 @@ static void append_heap_list(void *p)
     new->addr = p;
     new->next = NULL;
 
-    if (curr == NULL)
-        HEAP_LIST = new;
-    else
-    {
-        while (curr->next != NULL)
-            curr = curr->next;
+    while (*last_node_p != NULL)
+        last_node_p = &((*last_node_p)->next);
 
-        curr->next = new;
-    }
+    *last_node_p = new;
 }
 
 void *my_malloc(size_t bytes)
