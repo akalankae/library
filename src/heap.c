@@ -24,7 +24,8 @@ void free_heap_list(void)
     }
 }
 
-static void append_heap_list(void *p)
+void
+append_heap_list(void *p)
 {
     struct heap **last_node_p = &HEAP_LIST;
     struct heap *new = malloc(sizeof(struct heap));

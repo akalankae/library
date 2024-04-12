@@ -12,7 +12,7 @@ struct heap
 void
 free_heap_list(void);
 
-static void
+void
 append_heap_list(void *p);
 
 void *
